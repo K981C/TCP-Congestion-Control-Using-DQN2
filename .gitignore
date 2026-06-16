@@ -1,0 +1,55 @@
+
+# ====================================================================
+# NS3-Gym Project Gitignore
+# ====================================================================
+
+# --- C++ Build & Output Files ---
+# Waf / CMake build folders generated during standard ns-3 runs
+build/
+bin/
+.cmake/
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# --- Protocol Buffers & ZMQ Auto-Generated Files ---
+# Generated protobuf header and source binaries
+*.pb.cc
+*.pb.h
+*__pycache__/*.pyc
+*_pb2.py
+
+# --- Python Environment & Package Artifacts ---
+# Local Python virtual environments used to install the ns3gym module
+env/
+venv/
+*venv/
+.env
+.venv
+.pytest_cache/
+.eggs/
+*.egg-info/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+
+# --- Simulation Traces, Logs, and Visualizations ---
+# Output trace data, PCAP files, and NetAnim XML files
+*.tr
+*.pcap
+*.xml
+*.log
+*.txt
+
+# --- IDE and OS Specific Files ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
