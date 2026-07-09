@@ -17,8 +17,7 @@ cmake_install.cmake
 # Generated protobuf header and source binaries
 *.pb.cc
 *.pb.h
-*__pycache__/
-*.pyc
+*__pycache__/*.pyc
 *_pb2.py
 
 # --- Python Environment & Package Artifacts ---
@@ -47,8 +46,11 @@ share/python-wheels/
 *.pcap
 *.xml
 *.log
-*.txt
+
+logs.*
+log.*
 !requirements.txt
+
 # --- IDE and OS Specific Files ---
 .vscode/
 .idea/
