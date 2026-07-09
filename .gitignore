@@ -28,17 +28,7 @@ venv/
 .env
 .venv
 .pytest_cache/
-.eggs/
-*.egg-info/
-dist/
-eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
+
 
 # --- Simulation Traces, Logs, and Visualizations ---
 # Output trace data, PCAP files, and NetAnim XML files
