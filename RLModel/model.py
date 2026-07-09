@@ -29,13 +29,13 @@ class DeepQNetwork(nn.Module):
     def __init__(self):
         super(DeepQNetwork, self).__init__()
         self.network = nn.Sequential(
-            nn.Linear(9, 81),
+            nn.Linear(9, 64),
             nn.ReLU(),
-            nn.Linear(81, 162),
+            nn.Linear(64, 128),
             nn.ReLU(),
-            nn.Linear(162 , 81),
+            nn.Linear(128 , 128),
             nn.ReLU(),
-            nn.Linear(81, 6)
+            nn.Linear(128, 6)
         )
         
     def forward(self, x):
@@ -58,7 +58,7 @@ class ReplayBuffer:
             torch.stack(state).float().to(device),
             torch.LongTensor(action).to(device),
             torch.stack(reward).float().to(device),
-            torch.stack(state).float().to(device),
+            torch.stack(next_state).float().to(device),
         
         )
         
@@ -68,7 +68,7 @@ class ReplayBuffer:
 
 class DQNAgent:
     epsilon_min = 0.1
-    epsilon_decay = 0.995
+    epsilon_decay = 0.998
     def __init__(self):
         self.policy_net = DeepQNetwork().to(device)
         self.target_net =  DeepQNetwork().to(device)
@@ -76,7 +76,7 @@ class DQNAgent:
         self.target_net.eval()
         self.optimizer = torch.optim.Adam(self.policy_net.parameters(),lr=0.001)  
         self.epsilon = 1.0
-        self.alpha = 0.78
+        self.alpha = 0.489
      
 
     def selectAction(self , state):
@@ -89,7 +89,7 @@ class DQNAgent:
             return q.argmax().item()
     def send_action(self ,action):
         results = Agent(action)
-
+        metrics = results[1]
         T = results[1][0]
         Tmin = results[1][1]
         Tmax = results[1][2]
@@ -103,10 +103,12 @@ class DQNAgent:
             # Replace any NaNs resulting from 0/0 with 0.0
             norm_T = np.nan_to_num(norm_T)
             norm_rtt = np.nan_to_num(norm_rtt)
-            r_t = self.alpha * norm_T - (1 - self.alpha) * norm_rtt
+            # r_t = self.alpha * norm_T - (1 - self.alpha) * norm_rtt
+            #non linear rtt penalty
+            r_t = self.alpha * norm_T - (1 - self.alpha) * (norm_rtt ** 2)
             state = torch.as_tensor(results[0])
            
-        return r_t,state
+        return r_t,state,metrics
     
     def store_action_and_reward():
         memory = ReplayBuffer(100000)
