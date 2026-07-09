@@ -47,7 +47,7 @@ share/python-wheels/
 *.xml
 *.log
 *.txt
-
+!requirements.txt
 # --- IDE and OS Specific Files ---
 .vscode/
 .idea/
